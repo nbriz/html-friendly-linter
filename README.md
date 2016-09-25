@@ -35,6 +35,9 @@ var errObj = html.lint( htmlString );
 
 ```javascript
 {
+
+	line: 2,
+
 	message: '<head> is missing closing tag',
 
 	html: '<a style="color:#F92672;" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head" title="The HTML <head> element provides general information (metadata) about the document, including its title and links to its&nbsp;scripts and style sheets." target="_blank">&lt;head&gt;</a> is missing closing tag',
@@ -43,7 +46,7 @@ var errObj = html.lint( htmlString );
 }
 ```
 
- where 'message' is the plain text error message, 'html' is the error message formatted in html ( w/links to reference pages ) && 'code' is the html string that was passed into the linter starting at the point where it found the error
+ where 'line' is the line number of where the error occured, 'message' is the plain text error message, 'html' is the error message formatted in html ( w/links to reference pages ) && 'code' is the html string that was passed into the linter starting at the point where it found the error
 
 
 

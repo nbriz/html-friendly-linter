@@ -10,12 +10,13 @@ window.HTMLFriendlyLinter = (function(){
 		// if there's no errors errObj = false
 		// if there are, then errObj looks like this:
 		//
-		// { message:..., html:...,  code:... }
+		// { message:..., html:...,  line:..., code:... }
 		//
-		// where 'message' is the particular error message
-		// and 'html' is an html formatted string 
+		// where 'message' is the plain text error message
+		// and 'html' is an html formatted error message 
 		// ( with nfo/lnks from the elements/attributes dictionary files )
-		// and 'code' is the htmlString, starting at the part where it err'd
+		// and 'line' is where the line number error was found
+		// and 'code' is the htmlString, starting at the part where it err'd out
 
 
 		---- what it's DOING ------------------------
@@ -62,6 +63,8 @@ window.HTMLFriendlyLinter = (function(){
 		this.errorObj = null;
 		this.red = '#F92672';
 		this.green = '#a6da27';
+
+		this.lineCount = 0;
     }
 	
 	HTMLFriendlyLinter.prototype.err = function(){ 
@@ -116,8 +119,13 @@ window.HTMLFriendlyLinter = (function(){
 			plain = plain.replace('${'+(j-1)+'}', arg );
 		}		
 
+		// find line of error
+		var num, brs = html.match(/\n/g);
+		if( !brs ) num = this.lineCount;
+		else num = this.lineCount - brs.length;
+
 		// return error object
-		this.errorObj = { message:plain, html:formatted,  code:html }; 
+		this.errorObj = { message:plain, html:formatted,  code:html, line:num }; 
 		return false;
 	};
 
@@ -461,6 +469,14 @@ window.HTMLFriendlyLinter = (function(){
 		this.errorObj = null;
 		this.caseConsistency = null; 
 		this.closeConsistency = null;
+		this.lineCount = (function(str){
+			var br = 0;
+			while( str.indexOf('\n')>=0 ){
+				br++;
+				str = str.substring( str.indexOf('\n')+1 );
+			}
+			return br;
+		})(html);
 
 		// remove all js && css b4 parsing
 		html = this.removeCSSandJS(html);
