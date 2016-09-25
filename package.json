@@ -8,7 +8,8 @@
   },
   "scripts": {
     "lint": "jshint --reporter=node_modules/jshint-stylish --exclude=src/bb-code-styles.css src/*; exit 0",
-    "prebuild": "npm run lint",
+    "prebuild": "npm run lint; npm run build-debug",
+    "build-debug" : "browserify src/main.js -o HTMLFriendlyLinter.js",
     "build": "browserify src/main.js | uglifyjs > HTMLFriendlyLinter.min.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon -w src -x 'npm run build'"
