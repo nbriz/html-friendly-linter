@@ -15,6 +15,12 @@
 				width: 300px;
 				font-family: monospace;
 			}
+			section > div > div { 
+				background: #333;
+				color: #fff;
+				padding: 10px;
+				width:280px;
+			}
 
 			/*highlight overrides*/
 			.hljs { background: #272822; color:#fff;  }
@@ -116,9 +122,12 @@
 				
 				var err = html.lint( htmlString ); // ......................... USE lint() METHOD 
 				// ............................................................ pass code string >> returns err object
+				// err.message 	// plain text error message
+				// err.html 	// html formatted error message
+				// err.code 	// the html string starting from the point where the error was found
 
-				if( !err.message ) output.textContent = "error free!";
-				else output.textContent = err.message;
+				if( !err.html ) output.innerHTML = "error free!";
+				else output.innerHTML = err.html;
 			}
 
 
