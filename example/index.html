@@ -1,0 +1,127 @@
+<html>
+	
+	<head>
+		<title> the Friendly Linter </title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css">
+		<style>
+			section {
+				display: flex;
+				justify-content: space-around;
+				flex-wrap: wrap;
+			}
+			section > div > pre, 
+			section > div > div { 
+				width: 300px;
+				font-family: monospace;
+			}
+
+			/*highlight overrides*/
+			.hljs { background: #272822; color:#fff;  }
+			.hljs-meta, .hljs-tag { color:#F92672; }
+			.hljs-attr { color:#a6da27; }
+			.hljs-string { color:#dad06f; }
+		</style>
+	</head>
+	<body>
+		
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+		<script src="../HTMLFriendlyLinter.min.js"></script>
+		
+		<section>
+
+			<!-- first example	 -->
+			<div>
+				<pre id="example0"><code class="html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt; hey &lt;/title&gt;
+    &lt;meta charset="utf-8"&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt; hey! &lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;			
+				</code></pre>		
+				<div id="error0"></div>		
+			</div>
+
+			<!-- second example	 -->
+			<div>
+				<pre id="example1"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt; hey &lt;/title&gt;
+    &lt;meta char="utf-8"&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt; hey! &lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;			
+				</code></pre>
+				<div id="error1"></div>					
+			</div>
+
+			<!-- third example	 -->
+			<div>
+				<pre id="example2"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt; hey &lt;/title&gt;
+    &lt;meta charset="utf-8"&gt;
+  &lt;body&gt;
+    &lt;h1&gt; hey! &lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;			
+				</code></pre>	
+				<div id="error2"></div>					
+			</div>
+
+			<!-- fourth example	 -->
+			<div>
+					<pre id="example3"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt; hey &lt;/title&gt;
+    &lt;meta charset="utf-8"&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt; hey! &lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;			
+				</code></pre>				
+				<div id="error3"></div>	
+			</div>
+
+		</section>
+
+
+
+		<script>
+
+			// syntax highlighting
+			var codeBlocks = document.querySelectorAll('.html');
+			hljs.configure();
+			for (var i = 0; i < codeBlocks.length; i++) {
+				var code = codeBlocks[i];
+				hljs.highlightBlock(code);
+			}
+			
+
+			// HTML Friendly Linter
+			var html = new HTMLFriendlyLinter(); // ........................... CREATE LINTER OBJECT
+
+			for (var i = 0; i < codeBlocks.length; i++) {
+				var output = document.querySelector('#error'+i);
+				var htmlString = codeBlocks[i].textContent;
+				
+				var err = html.lint( htmlString ); // ......................... USE lint() METHOD 
+				// ............................................................ pass code string >> returns err object
+
+				if( !err.message ) output.textContent = "error free!";
+				else output.textContent = err.message;
+			}
+
+
+		</script>
+	</body>
+</html>

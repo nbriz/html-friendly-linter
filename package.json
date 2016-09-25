@@ -1,0 +1,33 @@
+{
+  "name": "html-friendly-linter",
+  "version": "1.0.0",
+  "description": "a kludgey html linter with friendly errors for beginners",
+  "main": "HTMLFriendlyLinter.min.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "lint": "jshint --reporter=node_modules/jshint-stylish --exclude=src/bb-code-styles.css src/*; exit 0",
+    "prebuild": "npm run lint",
+    "build": "browserify src/main.js | uglifyjs > HTMLFriendlyLinter.min.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon -w src -x 'npm run build'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nbriz/html-friendly-linter.git"
+  },
+  "author": "Nick Briz",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/nbriz/html-friendly-linter/issues"
+  },
+  "homepage": "https://github.com/nbriz/html-friendly-linter#readme",
+  "devDependencies": {
+    "browserify": "^13.0.1",
+    "jshint": "^2.9.2",
+    "jshint-stylish": "^2.2.0",
+    "nodemon": "^1.9.2",
+    "uglify-js": "^2.6.2"
+  }
+}
