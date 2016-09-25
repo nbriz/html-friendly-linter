@@ -35,11 +35,11 @@ var errObj = html.lint( htmlString );
 
 ```javascript
 {
-	message: "<head> is missing closing tag",
+	message: '<head> is missing closing tag',
 
-	html: "<a style="color:#F92672;" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head" title="The HTML <head> element provides general information (metadata) about the document, including its title and links to its&nbsp;scripts and style sheets." target="_blank">&lt;head&gt;</a> is missing closing tag",
+	html: '<a style="color:#F92672;" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head" title="The HTML <head> element provides general information (metadata) about the document, including its title and links to its&nbsp;scripts and style sheets." target="_blank">&lt;head&gt;</a> is missing closing tag',
 	
-	code: "<head>    <title> hey </title>    <meta charset="utf-8">  <body>    <h1> hey! </h1>  </body></html>"
+	code: '<head>    <title> hey </title>    <meta charset="utf-8">  <body>    <h1> hey! </h1>  </body></html>'
 }
 ```
 
