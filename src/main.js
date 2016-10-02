@@ -216,9 +216,10 @@ window.HTMLFriendlyLinter = (function(){
 			// if not a singleton attribute, make sure syntax is correct
 			if( attr[i].indexOf('=') >= 0 ) {
 				var a = attr[i].substring(0,attr[i].indexOf('='));
-				if( attr[i].match(/=/g).length > 1 ){ 
+				if( attr[i].match(/="/g).length > 1 ){ 
+					console.log( attr[i].match(/=/g) );
 					// if attribute has more than one equal sign
-					this.err("<${1}> element's ${2} attribute might be missing closing quote, or there's too many equal signs",html,attr[0],a);
+					this.err("<${1}> element's ${2} attribute might be missing a closing quote, or there's too many equal signs",html,attr[0],a);
 					return false;
 				}
 				else if( attr[i][attr[i].indexOf('=')+1]!=='"' ){
