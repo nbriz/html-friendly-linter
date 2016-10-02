@@ -251,8 +251,11 @@ window.HTMLFriendlyLinter = (function(){
 					this.err("the <${1}> element can't use the ${2} attribute, that's only for ${3}",html,attr[0],name,this.attributesDict[name].elements);
 			}
 			// check that attribute isn't depreciated 
-			if( this.attributesDict.hasOwnProperty(name) && !(this.attributesDict[name].supported) )
-				this.err("the ${1} attribute is no longer supported, you should be using CSS for this instead",html,name);
+			if( this.attributesDict.hasOwnProperty(name) && !(this.attributesDict[name].supported) ){
+				var cssDisclaimer=".";
+				if( name!=="profile") cssDisclaimer = ", maybe you should be using CSS for this instead";
+				this.err("the ${1} attribute is no longer supported"+cssDisclaimer,html,name);
+			}
 			
 		}
 

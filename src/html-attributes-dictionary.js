@@ -958,7 +958,12 @@ module.exports = {
         elements: ["<iframe>"],
         supported: true,
         nfo: { w3c: "Enumerated attribute indicating when the browser should provide a scroll bar (or other scrolling device) for the frame: auto (Only when needed), yes (Always provide a scroll bar), no (Never provide a scroll bar). (html4)", mdn: "Enumerated attribute indicating when the browser should provide a scroll bar (or other scrolling device) for the frame: auto (Only when needed), yes (Always provide a scroll bar), no (Never provide a scroll bar). (html4)"}        
-     }           
+    },
+    profile: {
+        elements: ["<head>"],
+        supported: false,
+        nfo: { w3c: "Specifies a URL to a document that contains a set of rules. The rules can be read by browsers to clearly understand the information in the <meta> tag's content attribute", mdn: undefined}
+    },
 };
 
 

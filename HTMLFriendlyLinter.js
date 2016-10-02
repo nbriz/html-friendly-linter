@@ -959,7 +959,12 @@ module.exports = {
         elements: ["<iframe>"],
         supported: true,
         nfo: { w3c: "Enumerated attribute indicating when the browser should provide a scroll bar (or other scrolling device) for the frame: auto (Only when needed), yes (Always provide a scroll bar), no (Never provide a scroll bar). (html4)", mdn: "Enumerated attribute indicating when the browser should provide a scroll bar (or other scrolling device) for the frame: auto (Only when needed), yes (Always provide a scroll bar), no (Never provide a scroll bar). (html4)"}        
-     }           
+    },
+    profile: {
+        elements: ["<head>"],
+        supported: false,
+        nfo: { w3c: "Specifies a URL to a document that contains a set of rules. The rules can be read by browsers to clearly understand the information in the <meta> tag's content attribute", mdn: undefined}
+    },
 };
 
 
@@ -1369,8 +1374,11 @@ window.HTMLFriendlyLinter = (function(){
 					this.err("the <${1}> element can't use the ${2} attribute, that's only for ${3}",html,attr[0],name,this.attributesDict[name].elements);
 			}
 			// check that attribute isn't depreciated 
-			if( this.attributesDict.hasOwnProperty(name) && !(this.attributesDict[name].supported) )
-				this.err("the ${1} attribute is no longer supported, you should be using CSS for this instead",html,name);
+			if( this.attributesDict.hasOwnProperty(name) && !(this.attributesDict[name].supported) ){
+				var cssDisclaimer=".";
+				if( name!=="profile") cssDisclaimer = ", maybe you should be using CSS for this instead";
+				this.err("the ${1} attribute is no longer supported"+cssDisclaimer,html,name);
+			}
 			
 		}
 
