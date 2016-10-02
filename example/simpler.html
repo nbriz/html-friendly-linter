@@ -1,0 +1,82 @@
+<html>
+	
+	<head>
+		<title> the Friendly Linter </title>
+		<meta charset="utf-8">
+		<style>
+			
+			section {
+				width: 75%;
+				margin: 20px auto;
+			}
+
+			textarea {
+				width: 100%;
+				padding: 10px;
+				height: 250px;
+				background: #333;
+				color: #fff;
+				font-family: monospace;
+				border-radius: 5px;
+			}
+
+			section > div {
+				display: flex;
+				margin-top: 10px
+			}
+			
+			button { padding:5px; margin-right:10px; }
+
+			#review {
+				font-family: monospace;
+				width: 100%;
+				background: #333;
+				color: #fff;
+				padding: 10px;
+				border-radius: 5px;
+			}
+			.err-line {
+				background: rgba(255,0,0,0.5);
+				padding: 2px;
+			}		
+
+		</style>
+	</head>
+	<body>
+		
+		
+		<section>
+			<textarea id="code" placeholder="copy+paste ur html code here, then push the button :)"></textarea> 
+			<div>
+				<button id="lint">Lint HTML Code</button>	<span id="review"></span>	
+			</div>
+		</section>
+
+
+		<script src="../HTMLFriendlyLinter.min.js"></script>
+		<script>
+
+			var lintBtn = document.getElementById('lint');
+			var codeBox = document.getElementById('code');
+			var review = document.getElementById('review');
+
+			// HTML Friendly Linter
+			var html = new HTMLFriendlyLinter(); 	// ........................... CREATE LINTER OBJECT
+
+			lintBtn.onclick = function(){
+				var code = codeBox.value;
+				
+				var err = html.lint( code ); 		// ......................... USE lint() METHOD 
+				// ............................................................. pass code string >> returns err object
+				// err.message 	// plain text error message
+				// err.html 	// html formatted error message
+				// err.line 	// the line number where the error was found
+				// err.code 	// the html string starting from the point where the error was found
+
+				if( !err.html ) review.innerHTML = "error free!";
+				else review.innerHTML = '<span class="err-line">LINE:'+(err.line+1)+":</span> "+ err.html;
+			}
+
+		</script>
+	</body>
+</html>

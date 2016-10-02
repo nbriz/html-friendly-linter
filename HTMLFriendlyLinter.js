@@ -929,7 +929,40 @@ module.exports = {
         supported: true,
         nfo: { w3c: "Specifies whether the content of an element should be translated or not.", mdn: undefined}
     },
+    // manually added attributes that aren't in w3c/mdn for some reason
+    allowfullscreen: {
+        elements: ["<iframe>"],
+        supported: true,
+        nfo: { w3c: "This attribute can be set to true if the frame is allowed to be placed into full screen mode by calling its Element.requestFullScreen() method. If this isn't set, the element can't be placed into full screen mode.", mdn: "This attribute can be set to true if the frame is allowed to be placed into full screen mode by calling its Element.requestFullScreen() method. If this isn't set, the element can't be placed into full screen mode."}        
+    },
+    frameborder: {
+        elements: ["<iframe>"],
+        supported: true,
+        nfo: { w3c: "The value 1 (the default) tells the browser to draw a border between this frame and every other frame. The value 0 tells the browser not to draw a border between this frame and other frames. (HTML 4)", mdn: "The value 1 (the default) tells the browser to draw a border between this frame and every other frame. The value 0 tells the browser not to draw a border between this frame and other frames. (HTML 4)"}        
+    },
+    marginheight: {
+        elements: ["<iframe>"],
+        supported: true,
+        nfo: { w3c: "The amount of space in pixels between the frame's content and its top and bottom margins. (html4)", mdn: "The amount of space in pixels between the frame's content and its top and bottom margins. (html4)"}        
+    }, 
+    marginwidth: {
+        elements: ["<iframe>"],
+        supported: true,
+        nfo: { w3c: "The amount of space in pixels between the frame's content and its left and right margins. (html4)", mdn: "The amount of space in pixels between the frame's content and its left and right margins. (html4)"}        
+    }, 
+    longdesc: {
+        elements: ["<iframe>"],
+        supported: true,
+        nfo: { w3c: "A URI of a long description of the frame. Due to widespread misuse, this is not helpful for non-visual browsers. (html4)", mdn: "A URI of a long description of the frame. Due to widespread misuse, this is not helpful for non-visual browsers. (html4)"}        
+    }, 
+    scrolling: {
+        elements: ["<iframe>"],
+        supported: true,
+        nfo: { w3c: "Enumerated attribute indicating when the browser should provide a scroll bar (or other scrolling device) for the frame: auto (Only when needed), yes (Always provide a scroll bar), no (Never provide a scroll bar). (html4)", mdn: "Enumerated attribute indicating when the browser should provide a scroll bar (or other scrolling device) for the frame: auto (Only when needed), yes (Always provide a scroll bar), no (Never provide a scroll bar). (html4)"}        
+     }           
 };
+
+
 
 },{}],2:[function(require,module,exports){
 /*
@@ -1301,9 +1334,10 @@ window.HTMLFriendlyLinter = (function(){
 			// if not a singleton attribute, make sure syntax is correct
 			if( attr[i].indexOf('=') >= 0 ) {
 				var a = attr[i].substring(0,attr[i].indexOf('='));
-				if( attr[i].match(/=/g).length > 1 ){ 
+				if( attr[i].match(/="/g).length > 1 ){ 
+					console.log( attr[i].match(/=/g) );
 					// if attribute has more than one equal sign
-					this.err("<${1}> element's ${2} attribute might be missing closing quote, or there's too many equal signs",html,attr[0],a);
+					this.err("<${1}> element's ${2} attribute might be missing a closing quote, or there's too many equal signs",html,attr[0],a);
 					return false;
 				}
 				else if( attr[i][attr[i].indexOf('=')+1]!=='"' ){
